@@ -1,0 +1,15 @@
+#GameOfLife {
+}
+.gameoflife {
+    padding: var(--cell-size);
+}
+.gameoflife .cell {
+    --size: var(--cell-size);
+    --alive-color: var(--cell-alive-color);
+    --dead-color: var(--cell-dead-color);
+}
+.gameoflife-viewport {
+    width: var(--board-width);
+    height: var(--board-height);
+    margin: auto;
+}

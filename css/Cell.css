@@ -1,0 +1,26 @@
+.cell {
+    --size: 50px;
+    --dead-color: #fff;
+    --alive-color: #333;
+
+    width: var(--size);
+    height: var(--size);
+
+    float: left;
+    border: 1px solid transparent;
+}
+.cell.is-alive {
+    background-color: var(--alive-color);
+    border-color: var(--dead-color);
+}
+
+.cell.is-dead {
+    background-color: var(--dead-color);
+    border-color: var(--alive-color);
+}
+.cell.is-dead:hover {
+    border-color: var(--dead-color);
+}
+.cell.is-alive:hover {
+    border-color: var(--alive-color);
+}
