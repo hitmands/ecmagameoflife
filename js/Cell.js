@@ -25,7 +25,7 @@ class Cell {
     }
 
     this.__LIFESTATUS_REASON__ = val;
-    this.el.dataset.lifeStatusReason = val;
+    this.el.dataset.lifeStatusReason = this.lifeStatusReason;
   }
   get lifeStatusReason() {
     return this.__LIFESTATUS_REASON__;
@@ -57,6 +57,9 @@ class Cell {
   get deadNeighbors() {
     return this.neighbors.filter(cell => cell.dead);
   }
+  get totalNeighbors() {
+    return this.neighbors.length;
+  }
   get totalAliveNeighbors() {
     return this.aliveNeighbors.length;
   }
@@ -72,8 +75,8 @@ class Cell {
       throw "neighbor must be an instance of Cell";
     }
 
-    if(cell.neighbors.length >= Cell.MAX_NEIGHBOURS) {
-      throw `Cannot set more than ${Cell.MAX_NEIGHBOURS} neighbours`;
+    if(cell.neighbors.length >= Cell.MAX_NEIGHBORS) {
+      throw `Cannot set more than ${Cell.MAX_NEIGHBORS} neighbors`;
     }
 
     this.__siblings__.push(cell);
@@ -130,22 +133,22 @@ class Cell {
   }
   lifeCheck() {
     if(this.dead) {
-      if(this.hasExactlyThreeAliveNeighbours()) {
+      if(this.hasExactlyThreeAliveNeighbors()) {
         return this.live(LIFESTATUS_REASONS.REPRODUCTION);
       }
 
       return this.kill();
     }
 
-    if(this.hasLessThanTwoAliveNeighbours()) {
+    if(this.hasLessThanTwoAliveNeighbors()) {
       return this.dead(LIFESTATUS_REASONS.ISOLATION);
     }
 
-    if(this.hasMoreThanThreeAliveNeighbours()) {
+    if(this.hasMoreThanThreeAliveNeighbors()) {
       return this.dead(LIFESTATUS_REASONS.OVERPOPULATION);
     }
 
-    if(this.hasTwoOrThreeAliveNeighbours()) {
+    if(this.hasTwoOrThreeAliveNeighbors()) {
       return this.live(LIFESTATUS_REASONS.SURVIVAL);
     }
 
@@ -153,16 +156,16 @@ class Cell {
     return this;
   }
 
-  hasLessThanTwoAliveNeighbours() {
+  hasLessThanTwoAliveNeighbors() {
     return this.totalAliveNeighbors < 2;
   }
-  hasTwoOrThreeAliveNeighbours() {
+  hasTwoOrThreeAliveNeighbors() {
     return this.totalAliveNeighbors === 2 || this.totalAliveNeighbors === 3;
   }
-  hasMoreThanThreeAliveNeighbours() {
+  hasMoreThanThreeAliveNeighbors() {
     return this.totalAliveNeighbors > 3;
   }
-  hasExactlyThreeAliveNeighbours() {
+  hasExactlyThreeAliveNeighbors() {
     return this.totalAliveNeighbors === 3;
   }
 
@@ -172,7 +175,7 @@ class Cell {
   static get DEATH_CLASSNAME() {
     return "is-dead";
   }
-  static get MAX_NEIGHBOURS() {
+  static get MAX_NEIGHBORS() {
     return 6;
   }
 
