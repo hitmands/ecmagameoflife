@@ -134,10 +134,10 @@ class Cell {
   lifeCheck() {
     if(this.dead) {
       if(this.hasExactlyThreeAliveNeighbors()) {
-        return this.live(LIFESTATUS_REASONS.REPRODUCTION);
+        this.live(LIFESTATUS_REASONS.REPRODUCTION);
       }
 
-      return this.kill();
+      return;
     }
 
     if(this.hasLessThanTwoAliveNeighbors()) {
