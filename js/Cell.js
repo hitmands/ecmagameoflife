@@ -7,16 +7,25 @@ const LIFESTATUS_REASONS = {
   "OVERPOPULATION": "overpopulation"
 };
 
+const LIFESTATUS = {
+  "INITIAL" : 0,
+  "ALIVE": 1,
+  "DEAD": 2
+};
+
 class Cell {
   constructor(id, alive) {
     this.id = id;
     this.el = Cell.createHtmlElement();
+    this.el.cell = this;
+
     this.alive = alive;
 
     this.el.onclick = this.onClick.bind(this);
     this.el.onmouseover = this.onMouseOver.bind(this);
     this.el.id = `Cell-${this.id}`;
     this.el.title = `CELL: ${this.id}`;
+    this.el.dataset.id = this.id;
 
     this.__siblings__ = [];
     this.__neighborhood__ = {
@@ -29,9 +38,10 @@ class Cell {
       "east": null,
       "northeast": null,
     };
-    this.lifeStatusReason = LIFESTATUS_REASONS.INITIAL;
     this.coords = null;
-    this.dieAtLifeCycle = void(0);
+
+    this.lifeStatusReason = LIFESTATUS_REASONS.INITIAL;
+    this.__LIFESTATUS__ = LIFESTATUS.INITIAL;
   }
 
   set lifeStatusReason(val) {
@@ -62,7 +72,6 @@ class Cell {
     } else {
       this.el.classList.remove(Cell.ALIVE_CLASSNAME);
       this.el.classList.add(Cell.DEATH_CLASSNAME);
-      this.dieAtLifeCycle = void(0);
     }
 
   }
@@ -121,14 +130,6 @@ class Cell {
   }
 
   onClick(e) {
-    e.stopPropagation();
-
-    if(this.alive) {
-      this.kill();
-    } else {
-      this.live();
-    }
-
     return this;
   }
   onMouseOver() {
@@ -141,20 +142,18 @@ class Cell {
     return this;
   }
 
-  kill(reason) {
+  kill() {
     if(this.alive) {
       this.alive = false;
     }
 
-    this.lifeStatusReason = reason;
     return this;
   }
-  live(reason) {
+  live() {
     if(this.dead) {
       this.alive = true;
     }
 
-    this.lifeStatusReason = reason;
     return this;
   }
   lifeCheck() {
@@ -166,37 +165,70 @@ class Cell {
       neighbors = this.totalNeighbors,
       aliveNeighbors = this.totalAliveNeighbors,
       deadNeighbors = this.totalDeadNeighbors,
-      dieAtLifeCycle = this.dieAtLifeCycle
+      dieAtLifeCycle = this.dieAtLifeCycle,
+
+      logId = `CELL ID:${this.id}`
     ;
 
-    if(dieAtLifeCycle === lifeCycle) {
-      this.kill()
-    } else if(this.alive) {
+    switch(this.__LIFESTATUS__) {
+      case LIFESTATUS.ALIVE:
+        this.live();
+        break;
+
+      case LIFESTATUS.DEAD:
+        this.kill();
+        break;
+    }
+
+    if(this.game.verbose) {
+      console.groupCollapsed(logId);
+    }
+
+    if(alive) {
+      console.log(1);
+
       if(this.hasLessThanTwoAliveNeighbors()) {
-        this.kill(LIFESTATUS_REASONS.ISOLATION);
+        console.log(1.1);
+
+        this.lifeStatusReason = LIFESTATUS_REASONS.ISOLATION;
+        this.__LIFESTATUS__ = LIFESTATUS.DEAD;
 
       } else if(this.hasMoreThanThreeAliveNeighbors()) {
-        this.kill(LIFESTATUS_REASONS.OVERPOPULATION);
+        console.log(1.2);
+
+        this.lifeStatusReason = LIFESTATUS_REASONS.OVERPOPULATION;
+        this.__LIFESTATUS__ = LIFESTATUS.DEAD;
 
       } else if(this.hasTwoOrThreeAliveNeighbors()) {
-        this.live(LIFESTATUS_REASONS.SURVIVAL);
-        this.dieAtLifeCycle = lifeCycle + 1;
+        console.log(1.3);
+
+        this.lifeStatusReason = LIFESTATUS_REASONS.SURVIVAL;
+        this.__LIFESTATUS__ = LIFESTATUS.ALIVE;
       }
 
     } else {
+      console.log(2);
+
       if(this.hasExactlyThreeAliveNeighbors()) {
-        this.live(LIFESTATUS_REASONS.REPRODUCTION);
+        console.log(2.1);
+
+        this.lifeStatusReason = LIFESTATUS_REASONS.REPRODUCTION;
+        this.__LIFESTATUS__ = LIFESTATUS.ALIVE;
       }
 
     }
 
     if(this.game.verbose) {
-      console.log(this.id, {
-        alive, reason,  lifeCycle, dieAtLifeCycle
+      console.log(this.lifeStatusReason.toUpperCase(), (this.alive ? "ALIVE" : "DEAD"), {
+        life: {prev: alive, current: this.alive}
+        , lifeStatus: {prev: reason, current: this.lifeStatusReason}
+        , lifeCycle, dieAtLifeCycle
         , neighbors: {total: neighbors,  alive: aliveNeighbors, dead: deadNeighbors}
-    }
+      }
 //        , this
       );
+
+      console.groupEnd(logId);
     }
 
     return this;
@@ -238,5 +270,18 @@ class Cell {
     el.classList.add('cell');
 
     return el;
+  }
+  static onClick(game, cb) {
+    game.el.addEventListener("click", event => {
+      let cell;
+
+      try {
+        cell = event.target.cell;
+      } catch(e) {}
+
+      if(cell) {
+        cb.call(null, event, cell);
+      }
+    });
   }
 }

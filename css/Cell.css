@@ -8,6 +8,7 @@
 
     float: left;
     border: 1px solid transparent;
+    position: relative;
 }
 .cell.is-alive {
     background-color: var(--alive-color);
@@ -23,4 +24,22 @@
 }
 .cell.is-alive:hover {
     border-color: var(--alive-color);
+}
+.cell.is-alive::before {
+    color: var(--dead-color);
+}
+.cell.is-dead::before {
+    color: var(--alive-color);
+}
+
+.cell::before {
+    content: attr(data-id);
+    position: absolute;
+    top: .2em;
+    left: .2em;
+    font-size: 8px;
+}
+.cell:hover::before {
+}
+.gameoflife .cell::before {
 }
