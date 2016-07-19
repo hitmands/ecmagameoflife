@@ -215,6 +215,10 @@ class Cell {
     return this.totalAliveNeighbors === 3;
   }
 
+  is(arg) {
+    return Cell.is(arg) && (this.id === arg.id);
+  }
+
   static get ALIVE_CLASSNAME() {
     return "is-alive";
   }
