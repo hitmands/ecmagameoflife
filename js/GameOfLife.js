@@ -210,7 +210,7 @@ class GameOfLife {
     return this.__IS_PLAYING__;
   }
 
-  start() {
+  prepare() {
     this.pause();
     this.lifeCycle = 0;
 

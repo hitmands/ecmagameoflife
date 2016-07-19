@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   game
-    .start()
+    .prepare()
     .then(GameOfLifeCtrl.bind(Object.create(null), game))
   ;
 });
