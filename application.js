@@ -4,11 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let element = document.getElementById("GameOfLife");
 
   let options = {
-    "cellSize": 40,
+    "cellSize": 60,
     "rows": 6,
     "columns": 6,
     "aliveColor": "#333",
-    "deadColor": "#fff"
+    "deadColor": "#fff",
+    "verbose": true
   };
 
   let game = new GameOfLife(element, options);

@@ -13,3 +13,27 @@
     height: var(--board-height);
     margin: auto;
 }
+.gameoflife-footer {
+    width: var(--board-width);
+    margin: auto;
+}
+.gameoflife-footer .navbar {
+    padding: 7px;
+}
+.gameoflife-controls {
+}
+.gameoflife-controls [data-controls-toggle] {
+    cursor: pointer;
+}
+.gameoflife-controls [data-controls-toggle]:hover {
+    box-shadow: inset -1px -1px 2px 0 rgba(9, 9, 9, .1);
+}
+.gameoflife-controls [data-controls-toggle]:active {
+    box-shadow: inset -2px -2px 10px 0 rgba(0, 0, 0, .1);
+}
+.gameoflife .glyphicon::before {
+    content: "\e072";
+}
+.gameoflife.is-playing .glyphicon::before {
+    content: "\e073";
+}

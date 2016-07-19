@@ -153,7 +153,7 @@ class GameOfLife {
     return this;
   }
 
-  emitLifeCyclEvent() {
+  emitLifeCycleEvent() {
     let event = GameOfLife.createEvent();
 
     this.lifeCycle += 1;
@@ -168,6 +168,7 @@ class GameOfLife {
       lifeCycle: this.lifeCycle
     });
     GameOfLife.triggerEvent(event);
+    return this;
   }
   onLifeCycle(callback, _this = null) {
     document.addEventListener(this.LIFECYCLE_EVENTNAME, (event) => {
@@ -182,7 +183,7 @@ class GameOfLife {
       this.el.classList.remove(GameOfLife.PAUSE_CLASSNAME, GameOfLife.PRISTINE_CLASSNAME);
       this.el.classList.add(GameOfLife.PLAY_CLASSNAME);
       this.__INTERVAL__ = window.setInterval(() => {
-        this.emitLifeCyclEvent();
+        this.emitLifeCycleEvent();
       }, this.lifeCycleInterval);
       this.__IS_PLAYING__ = true;
     }
