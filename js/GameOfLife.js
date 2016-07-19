@@ -28,7 +28,12 @@ class GameOfLife {
     row = Number(row) || 0;
     col = Number(col) || 0;
 
-    if(!row || !col || (row > this.opts.rows) || (col > this.opts.columns)) {
+    if(
+      (row < GameOfLife.INITIAL_CELL_ID) ||
+      (col < GameOfLife.INITIAL_CELL_ID) ||
+      (row > this.opts.rows) ||
+      (col > this.opts.columns)
+    ) {
       throw `{row: ${row}, col: ${col}} are not valid coordinates`;
     }
 
@@ -37,19 +42,10 @@ class GameOfLife {
     );
   }
   getCellNeighborhood(arg) {
-    let cell;
+    let cell = Cell.is(arg) ? arg : this.getCell(arg);
+
     let east, west, north, south;
     let northeast, northwest, southeast, southwest;
-
-    if(Cell.is(arg)) {
-      cell = arg;
-    } else {
-      try {
-        cell = this.getCell(arg);
-      } catch(e) {
-        return null;
-      }
-    }
 
     let
       row = cell.coords.row,
