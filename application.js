@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let element = document.getElementById("GameOfLife");
 
   let options = {
-    "cellSize": 20,
-    "rows": 25,
-    "columns": 25,
+    "cellSize": 40,
+    "rows": 6,
+    "columns": 6,
     "aliveColor": "#333",
     "deadColor": "#fff"
   };

@@ -1,5 +1,6 @@
 "use strict";
 
 function GameOfLifeCtrl(game) {
-  game.lifeCycleInterval = 1000;
+  game.lifeCycleInterval = 3000;
+  game.verbose = true;
 }

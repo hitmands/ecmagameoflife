@@ -1,5 +1,6 @@
 const LIFESTATUS_REASONS = {
   "UNKNOWN": "unknown",
+  "INITIAL": "initial",
   "SURVIVAL": "survival",
   "REPRODUCTION": "reproduction",
   "ISOLATION": "isolation",
@@ -16,7 +17,21 @@ class Cell {
     this.el.onmouseover = this.onMouseOver.bind(this);
     this.el.id = `Cell-${this.id}`;
     this.el.title = `CELL: ${this.id}`;
+
     this.__siblings__ = [];
+    this.__neighborhood__ = {
+      "north": null,
+      "northwest": null,
+      "west": null,
+      "southwest": null,
+      "south": null,
+      "southeast": null,
+      "east": null,
+      "northeast": null,
+    };
+    this.lifeStatusReason = LIFESTATUS_REASONS.INITIAL;
+    this.coords = null;
+    this.dieAtLifeCycle = void(0);
   }
 
   set lifeStatusReason(val) {
@@ -47,6 +62,7 @@ class Cell {
     } else {
       this.el.classList.remove(Cell.ALIVE_CLASSNAME);
       this.el.classList.add(Cell.DEATH_CLASSNAME);
+      this.dieAtLifeCycle = void(0);
     }
 
   }
@@ -67,18 +83,28 @@ class Cell {
     return this.deadNeighbors.length;
   }
 
+  get neighborhood() {
+    return this.__neighborhood__;
+  }
   get neighbors() {
     return this.__siblings__;
   }
-  set neighbor(cell) {
+  set neighbor(arg) {
+    let {cell, position} = arg;
+
     if(!Cell.is(cell)) {
       throw "neighbor must be an instance of Cell";
     }
 
-    if(cell.neighbors.length >= Cell.MAX_NEIGHBORS) {
-      throw `Cannot set more than ${Cell.MAX_NEIGHBORS} neighbors`;
+    if(cell.totalNeighbors > Cell.MAX_NEIGHBORS) {
+      throw `Cannot set more than ${Cell.MAX_NEIGHBORS} neighbors. Currently: ${this.totalNeighbors}`;
     }
 
+    if(!(this.neighborhood.hasOwnProperty(position))) {
+      throw `Invalid value for position: ${position}`;
+    }
+
+    this.__neighborhood__[position] = cell;
     this.__siblings__.push(cell);
   }
 
@@ -132,26 +158,46 @@ class Cell {
     return this;
   }
   lifeCheck() {
-    if(this.dead) {
+
+    let
+      reason = this.lifeStatusReason,
+      alive = this.alive,
+      lifeCycle = this.game.lifeCycle,
+      neighbors = this.totalNeighbors,
+      aliveNeighbors = this.totalAliveNeighbors,
+      deadNeighbors = this.totalDeadNeighbors,
+      dieAtLifeCycle = this.dieAtLifeCycle
+    ;
+
+    if(dieAtLifeCycle === lifeCycle) {
+      this.kill()
+    } else if(this.alive) {
+      if(this.hasLessThanTwoAliveNeighbors()) {
+        this.kill(LIFESTATUS_REASONS.ISOLATION);
+
+      } else if(this.hasMoreThanThreeAliveNeighbors()) {
+        this.kill(LIFESTATUS_REASONS.OVERPOPULATION);
+
+      } else if(this.hasTwoOrThreeAliveNeighbors()) {
+        this.live(LIFESTATUS_REASONS.SURVIVAL);
+        this.dieAtLifeCycle = lifeCycle + 1;
+      }
+
+    } else {
       if(this.hasExactlyThreeAliveNeighbors()) {
         this.live(LIFESTATUS_REASONS.REPRODUCTION);
       }
 
-      return;
     }
 
-    if(this.hasLessThanTwoAliveNeighbors()) {
-      return this.dead(LIFESTATUS_REASONS.ISOLATION);
+    if(this.game.verbose) {
+      console.log(this.id, {
+        alive, reason,  lifeCycle, dieAtLifeCycle
+        , neighbors: {total: neighbors,  alive: aliveNeighbors, dead: deadNeighbors}
     }
-
-    if(this.hasMoreThanThreeAliveNeighbors()) {
-      return this.dead(LIFESTATUS_REASONS.OVERPOPULATION);
+//        , this
+      );
     }
-
-    if(this.hasTwoOrThreeAliveNeighbors()) {
-      return this.live(LIFESTATUS_REASONS.SURVIVAL);
-    }
-
 
     return this;
   }
@@ -176,7 +222,7 @@ class Cell {
     return "is-dead";
   }
   static get MAX_NEIGHBORS() {
-    return 6;
+    return 8;
   }
 
   static is(arg) {

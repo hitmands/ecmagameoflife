@@ -24,6 +24,98 @@ class GameOfLife {
 
     return cell;
   }
+  getCellByCoords(row, col) {
+    row = Number(row) || 0;
+    col = Number(col) || 0;
+
+    if(!row || !col || (row > this.opts.rows) || (col > this.opts.columns)) {
+      throw `{row: ${row}, col: ${col}} are not valid coordinates`;
+    }
+
+    return this.getCell(
+      (this.opts.columns * row) - (this.opts.columns - col)
+    );
+  }
+  getCellNeighborhood(arg) {
+    let cell;
+    let east, west, north, south;
+    let northeast, northwest, southeast, southwest;
+
+    if(Cell.is(arg)) {
+      cell = arg;
+    } else {
+      try {
+        cell = this.getCell(arg);
+      } catch(e) {
+        return null;
+      }
+    }
+
+    let
+      row = cell.coords.row,
+      col = cell.coords.col;
+
+    let
+      n = row - 1,
+      w = col + 1,
+      s = row + 1,
+      e = col - 1
+      ;
+
+    try {
+      north = this.getCellByCoords(n, col);
+    } catch(e) {
+      north = null;
+    }
+
+    try {
+      northwest = this.getCellByCoords(n,  w);
+    } catch(e) {
+      northwest = null;
+    }
+
+    try {
+      west = this.getCellByCoords(row, w);
+    } catch(e) {
+      west = null;
+    }
+
+    try {
+      southwest = this.getCellByCoords(s,  w);
+    } catch(e) {
+      southwest = null;
+    }
+
+    try {
+      south = this.getCellByCoords(s, col);
+    } catch(e) {
+      south = null;
+    }
+
+    try {
+      southeast = this.getCellByCoords(s,  e);
+    } catch(e) {
+      southeast = null;
+    }
+
+    try {
+      east = this.getCellByCoords(row, e);
+    } catch(e) {
+      east = null;
+    }
+
+    try {
+      northeast = this.getCellByCoords(n, e);
+    } catch(e) {
+      northeast = null;
+    }
+
+    return {
+//      cell,
+      east, west, north, south,
+      northeast, northwest, southeast, southwest
+    };
+  }
 
   kill(...ids) {
     for(let id of ids) {
@@ -46,35 +138,23 @@ class GameOfLife {
     return this.walk(cell => cell.live());
   }
 
-  walk(callback) {
-    for(let id = GameOfLife.INITIAL_CELL_ID; id <= this.cellsCount; id++) {
-      callback(this.getCell(id), id);
+  forEach(callback, _this = null) {
+    let start = GameOfLife.INITIAL_CELL_ID;
+
+    for(let i = 0, row = start; row <= this.opts.rows; row++) {
+      for(let col = start; col <= this.opts.columns; col++) {
+        callback.call(_this,  i++, i, row,  col);
+      }
     }
 
     return this;
   }
-  start() {
-    let body = this.el.querySelector(`.${GameOfLife.NAMESPACE}-body`);
-    this.viewport = document.createElement('div');
-    this.viewport.classList.add(`${GameOfLife.NAMESPACE}-viewport`);
+  walk(callback, _this = null) {
+    this.forEach((cellIndex, cellId, row, col) => {
+      callback(this.getCell(cellId), {cellIndex, cellId, row,  col});
+    }, _this);
 
-    this.lifeCycle = 0;
-    body.innerHTML = "";
-    body.appendChild(this.viewport);
-
-    this.cells = Object.create(null);
-    this.pause();
-    this.el.classList.add(GameOfLife.PRISTINE_CLASSNAME);
-    return new Promise((resolve, reject) => {
-      for(let id = GameOfLife.INITIAL_CELL_ID; id <= this.cellsCount; id++) {
-        let cell = new Cell(id, false);
-        cell.game = this;
-        this.cells[id] = cell;
-        this.viewport.appendChild(cell.el);
-      }
-
-      resolve(this);
-    });
+    return this;
   }
 
   emitLifeCyclEvent() {
@@ -93,7 +173,6 @@ class GameOfLife {
     });
     GameOfLife.triggerEvent(event);
   }
-
   onLifeCycle(callback, _this = null) {
     document.addEventListener(this.LIFECYCLE_EVENTNAME, (event) => {
       callback.call(_this, event, event.detail);
@@ -131,6 +210,49 @@ class GameOfLife {
     return this.__IS_PLAYING__;
   }
 
+  start() {
+    this.pause();
+    this.lifeCycle = 0;
+
+    this.viewport = document.createElement('div');
+    this.viewport.classList.add(`${GameOfLife.NAMESPACE}-viewport`);
+
+    let body = this.el.querySelector(`.${GameOfLife.NAMESPACE}-body`);
+    body.innerHTML = "";
+    body.appendChild(this.viewport);
+
+    this.cells = Object.create(null);
+    this.el.classList.add(GameOfLife.PRISTINE_CLASSNAME);
+
+    return new Promise((resolve, reject) => {
+
+      this
+        .forEach((index, id, row, col) => {
+        let cell = new Cell(id, false);
+
+        cell.coords = {row, col};
+        cell.game = this;
+        this.cells[id] = cell;
+        this.viewport.appendChild(cell.el);
+      })
+        .walk((cell, info) => {
+          let neighborhood = this.getCellNeighborhood(cell);
+
+          for(let position in neighborhood) {
+            if(!neighborhood.hasOwnProperty(position) || !neighborhood[position]) {
+              continue;
+            }
+
+            let siblingCell = neighborhood[position];
+            cell.neighbor = {position, cell: siblingCell};
+          }
+        })
+      ;
+
+      resolve(this);
+    });
+  }
+
   get LIFECYCLE_EVENTNAME() {
     return `${this.id}.${GameOfLife.LIFECYCLE_EVENTNAME}`;
   }
@@ -151,7 +273,6 @@ class GameOfLife {
   set lifeCycleInterval(ms) {
     this.__LIFECYCLE_INTERVAL__ = Number(ms);
   }
-
 
   set verbose(val) {
     this.opts.verbose = !!val;
@@ -194,10 +315,12 @@ class GameOfLife {
     style.innerHTML = `
 #${_id} {
   --cell-size: ${i.opts.cellSize}px;
+  --rows: ${i.opts.rows};
+  --columns: ${i.opts.columns};
   --cell-alive-color: ${i.opts.aliveColor};
   --cell-dead-color: ${i.opts.deadColor};
-  --board-width: ${i.opts.columns * i.opts.cellSize}px;
-  --board-height: ${i.opts.rows * i.opts.cellSize}px;
+  --board-width: calc(var(--columns) * var(--cell-size));
+  --board-height: calc(var(--rows) * var(--cell-size));
 }
 `;
 
