@@ -64,7 +64,7 @@ class Cell {
     return this._alive;
   }
 
-  get aliveStatus() {
+  get lifeStatus() {
     return this.__LIFESTATUS__;
   }
   

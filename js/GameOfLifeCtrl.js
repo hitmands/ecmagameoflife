@@ -2,7 +2,7 @@
 
 function GameOfLifeCtrl(game) {
   let REASON = "userdefined";
-  game.lifeCycleInterval = 3000;
+  game.lifeCycleInterval = 500;
 
   let controls = (($) => {
     let el = $.getElementById('GameOfLife-Controls');
@@ -10,17 +10,21 @@ function GameOfLifeCtrl(game) {
     let viewport = el.querySelector('[data-controls-viewport]');
 
     toggle.onclick = () => {
-      game.isPlaying() ? game.pause() : game.next();
+      game.isPlaying() ? game.pause() : game.play();
     };
-
-    game.onLifeCycle((event, data) => {
-      viewport.innerHTML = data.lifeCycle;
-      setTimeout(()=> game.walk(cell=> cell.aliveStatus === LIFESTATUS.ALIVE ? cell.live() : cell.kill()), 1);
-    });
 
     return {el, toggle, viewport};
   })(document);
 
+  game.onLifeCycle((event, data) => {
+    controls.viewport.innerHTML = data.lifeCycle;
+
+    setTimeout(()=> {
+      game.walk(cell => {
+        cell.lifeStatus === LIFESTATUS.ALIVE ? cell.live() : cell.kill()
+      })
+    }, 1);
+  });
 
   Cell.onClick(game, (event, cell) => {
     event.stopPropagation();
@@ -28,5 +32,8 @@ function GameOfLifeCtrl(game) {
     cell.alive ? cell.kill(REASON) : cell.live(REASON);
   });
 
-  game.live(80, 81, 67, 51, 82); // BOAT;
+  //game.live(2, 18, 33, 32, 31); // BOAT;
+  game.live(
+
+  ); //cannons
 }

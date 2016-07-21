@@ -190,7 +190,7 @@ class GameOfLife {
 
     return this;
   }
-  next() {
+  nextLifeCycle() {
     return this.emitLifeCycleEvent();
   }
   pause() {
