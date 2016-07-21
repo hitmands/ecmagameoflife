@@ -63,6 +63,11 @@ class Cell {
   get alive() {
     return this._alive;
   }
+
+  get aliveStatus() {
+    return this.__LIFESTATUS__;
+  }
+  
   set alive(val) {
     this._alive = !!val;
 
@@ -169,16 +174,6 @@ class Cell {
 
       logId = `CELL ID:${this.id}`
     ;
-
-    switch(this.__LIFESTATUS__) {
-      case LIFESTATUS.ALIVE:
-        this.live();
-        break;
-
-      case LIFESTATUS.DEAD:
-        this.kill();
-        break;
-    }
 
     if(this.game.verbose) {
       console.groupCollapsed(logId);

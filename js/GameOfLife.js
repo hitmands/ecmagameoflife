@@ -190,6 +190,9 @@ class GameOfLife {
 
     return this;
   }
+  next() {
+    return this.emitLifeCycleEvent();
+  }
   pause() {
     if(this.isPlaying()) {
       window.clearInterval(this.__INTERVAL__);

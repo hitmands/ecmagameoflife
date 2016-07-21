@@ -10,11 +10,12 @@ function GameOfLifeCtrl(game) {
     let viewport = el.querySelector('[data-controls-viewport]');
 
     toggle.onclick = () => {
-      game.isPlaying() ? game.pause() : game.play();
+      game.isPlaying() ? game.pause() : game.next();
     };
 
     game.onLifeCycle((event, data) => {
       viewport.innerHTML = data.lifeCycle;
+      setTimeout(()=> game.walk(cell=> cell.aliveStatus === LIFESTATUS.ALIVE ? cell.live() : cell.kill()), 1);
     });
 
     return {el, toggle, viewport};
@@ -27,5 +28,5 @@ function GameOfLifeCtrl(game) {
     cell.alive ? cell.kill(REASON) : cell.live(REASON);
   });
 
-  game.live(35, 30, 23, 22, 28); // BOAT;
+  game.live(80, 81, 67, 51, 82); // BOAT;
 }
