@@ -28,7 +28,10 @@ function GameOfLifeCtrl(game) {
 
     toggle.onclick = () => game.isPlaying() ? game.pause() : game.play();
     next.onclick = () => game.nextLifeCycle();
-    clear.onclick = () => this.reset();
+    clear.onclick = () => {
+      this.reset();
+      this.restoreCurrentPattern();
+    };
 
     select.onchange = () => this.setPattern(Number(select.value));
 
@@ -51,10 +54,12 @@ function GameOfLifeCtrl(game) {
     cell.alive ? cell.kill(REASON) : cell.live(REASON);
   });
 
+  this.currentPattern = 0;
   this.setPattern = (type) => {
     this.reset();
+    this.currentPattern = type;
 
-    switch(type) {
+    switch(this.currentPattern) {
       case PATTERNS.BLOCK:
         this.drawBlock(83);
         break;
@@ -85,4 +90,6 @@ function GameOfLifeCtrl(game) {
       southwest.live();
     } catch(e) {}
   };
+
+  this.restoreCurrentPattern = () => this.setPattern(this.currentPattern);
 }
