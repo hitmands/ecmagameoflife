@@ -22,18 +22,29 @@
 }
 .gameoflife-controls {
 }
-.gameoflife-controls [data-controls-toggle] {
+.gameoflife-controls .control {
     cursor: pointer;
 }
-.gameoflife-controls [data-controls-toggle]:hover {
+.gameoflife-controls .control:hover {
     box-shadow: inset -1px -1px 2px 0 rgba(9, 9, 9, .1);
 }
-.gameoflife-controls [data-controls-toggle]:active {
+.gameoflife-controls .control:active {
     box-shadow: inset -2px -2px 10px 0 rgba(0, 0, 0, .1);
 }
-.gameoflife .glyphicon::before {
+.gameoflife [data-controls-toggle] .glyphicon::before {
     content: "\e072";
 }
-.gameoflife.is-playing .glyphicon::before {
+.gameoflife.is-playing [data-controls-toggle] .glyphicon::before {
     content: "\e073";
+}
+
+.lc-counter {
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.form-control {
+    text-transform: uppercase;
 }

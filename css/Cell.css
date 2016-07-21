@@ -33,7 +33,6 @@
 }
 
 .cell::before {
-    content: attr(data-id);
     position: absolute;
     top: .2em;
     left: .2em;
@@ -41,5 +40,6 @@
 }
 .cell:hover::before {
 }
-.gameoflife .cell::before {
+.gameoflife[data-verbose="true"] .cell::before {
+    content: attr(data-id);
 }

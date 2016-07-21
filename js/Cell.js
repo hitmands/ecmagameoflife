@@ -16,8 +16,7 @@ const LIFESTATUS = {
 class Cell {
   constructor(id, alive) {
     this.id = id;
-    this.el = Cell.createHtmlElement();
-    this.el.cell = this;
+    Cell.createHtmlElement(this);
 
     this.alive = alive;
 
@@ -41,7 +40,7 @@ class Cell {
     this.coords = null;
 
     this.lifeStatusReason = LIFESTATUS_REASONS.INITIAL;
-    this.__LIFESTATUS__ = LIFESTATUS.INITIAL;
+    this.lifeStatus = LIFESTATUS.INITIAL;
   }
 
   set lifeStatusReason(val) {
@@ -66,6 +65,9 @@ class Cell {
 
   get lifeStatus() {
     return this.__LIFESTATUS__;
+  }
+  set lifeStatus(val) {
+    this.__LIFESTATUS__ = val;
   }
   
   set alive(val) {
@@ -186,19 +188,19 @@ class Cell {
         console.log(1.1);
 
         this.lifeStatusReason = LIFESTATUS_REASONS.ISOLATION;
-        this.__LIFESTATUS__ = LIFESTATUS.DEAD;
+        this.lifeStatus = LIFESTATUS.DEAD;
 
       } else if(this.hasMoreThanThreeAliveNeighbors()) {
         console.log(1.2);
 
         this.lifeStatusReason = LIFESTATUS_REASONS.OVERPOPULATION;
-        this.__LIFESTATUS__ = LIFESTATUS.DEAD;
+        this.lifeStatus = LIFESTATUS.DEAD;
 
       } else if(this.hasTwoOrThreeAliveNeighbors()) {
         console.log(1.3);
 
         this.lifeStatusReason = LIFESTATUS_REASONS.SURVIVAL;
-        this.__LIFESTATUS__ = LIFESTATUS.ALIVE;
+        this.lifeStatus = LIFESTATUS.ALIVE;
       }
 
     } else {
@@ -208,7 +210,7 @@ class Cell {
         console.log(2.1);
 
         this.lifeStatusReason = LIFESTATUS_REASONS.REPRODUCTION;
-        this.__LIFESTATUS__ = LIFESTATUS.ALIVE;
+        this.lifeStatus = LIFESTATUS.ALIVE;
       }
 
     }
@@ -259,12 +261,14 @@ class Cell {
   static is(arg) {
     return arg instanceof Cell;
   }
-  static createHtmlElement() {
+  static createHtmlElement(instance) {
     let el = document.createElement('div');
 
     el.classList.add('cell');
 
-    return el;
+    el.cell = instance;
+    instance.el = el;
+    return Cell;
   }
   static onClick(game, cb) {
     game.el.addEventListener("click", event => {

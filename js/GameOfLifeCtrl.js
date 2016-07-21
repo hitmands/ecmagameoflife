@@ -1,19 +1,38 @@
 "use strict";
 
 function GameOfLifeCtrl(game) {
-  let REASON = "userdefined";
+  let REASON = "userinput";
   game.lifeCycleInterval = 500;
+
+  const PATTERNS = {
+    "BLOCK": 1,
+    "BEEHIVE": 2,
+    "LOAF": 3,
+    "BOAT": 4,
+    "BLINKER": 5,
+    "TOAD": 6,
+    "BEACON": 7,
+    "PULSAR": 8,
+    "PENTADECATHLON": 9,
+    "GLIDER": 10,
+    "LIGHTWEIGHT_SPACESHIP": 11
+  };
 
   let controls = (($) => {
     let el = $.getElementById('GameOfLife-Controls');
     let toggle = el.querySelector('[data-controls-toggle]');
+    let next = el.querySelector('[data-controls-nextlifecycle]');
+    let clear = el.querySelector('[data-controls-reset]');
     let viewport = el.querySelector('[data-controls-viewport]');
+    let select = $.querySelector('#GameOfLife-Patterns');
 
-    toggle.onclick = () => {
-      game.isPlaying() ? game.pause() : game.play();
-    };
+    toggle.onclick = () => game.isPlaying() ? game.pause() : game.play();
+    next.onclick = () => game.nextLifeCycle();
+    clear.onclick = () => this.reset();
 
-    return {el, toggle, viewport};
+    select.onchange = () => this.setPattern(Number(select.value));
+
+    return {el, toggle, viewport, next, select};
   })(document);
 
   game.onLifeCycle((event, data) => {
@@ -23,7 +42,7 @@ function GameOfLifeCtrl(game) {
       game.walk(cell => {
         cell.lifeStatus === LIFESTATUS.ALIVE ? cell.live() : cell.kill()
       })
-    }, 1);
+    }, 0);
   });
 
   Cell.onClick(game, (event, cell) => {
@@ -32,8 +51,38 @@ function GameOfLifeCtrl(game) {
     cell.alive ? cell.kill(REASON) : cell.live(REASON);
   });
 
-  //game.live(2, 18, 33, 32, 31); // BOAT;
-  game.live(
+  this.setPattern = (type) => {
+    this.reset();
 
-  ); //cannons
+    switch(type) {
+      case PATTERNS.BLOCK:
+        this.drawBlock(83);
+        break;
+    }
+  };
+
+  this.reset = () => {
+    game.pause();
+    game.lifeCycle = 0;
+    controls.viewport.innerHTML = `${game.lifeCycle}`;
+
+    game.walk(cell => {
+      cell.kill();
+      cell.lifeStatus = LIFESTATUS.INITIAL;
+      cell.lifeStatusReason = LIFESTATUS_REASONS.INITIAL;
+    });
+  };
+
+  this.drawBlock = (cell) => {
+    cell = Cell.is(cell) ? cell: game.getCell(cell);
+
+    let {west, south, southwest} = cell.neighborhood;
+    cell.live();
+    try {
+      cell.live();
+      west.live();
+      south.live();
+      southwest.live();
+    } catch(e) {}
+  };
 }

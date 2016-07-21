@@ -18,13 +18,40 @@
         <nav class="navbar navbar-default navbar-static-top">
 
             <div class="row">
-                <div class="col-xs-7"></div>
-                <div class="col-xs-5">
+                <div class="col-xs-8">
+                    <select class="form-control" id="GameOfLife-Patterns">
+                        <option disabled selected>PATTERNS</option>
+                        <optgroup label="Still lifes">
+                            <option value="1">BLOCK</option>
+                            <option value="2">Beehive</option>
+                            <option value="3">Loaf</option>
+                            <option value="4">Boat</option>
+                        </optgroup>
+                        <optgroup label="Oscillators">
+                            <option value="5">Blinker (2 Life Cycle)</option>
+                            <option value="6">Toad (2 Life Cycle)</option>
+                            <option value="7">Beacon (3 Life Cycle)</option>
+                            <option value="8">Pulsar (3 Life Cycle)</option>
+                            <option value="9">Pentadecathlon (15 Life Cycle)</option>
+                        </optgroup>
+                        <optgroup label="Spaceships">
+                            <option value="10">Glider</option>
+                            <option value="11">Lightweight spaceship</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="col-xs-4">
                     <div id="GameOfLife-Controls" class="gameoflife-controls">
                         <div class="input-group">
-                            <div class="form-control" data-controls-viewport>0</div>
-                            <div class="input-group-addon" data-controls-toggle>
+                            <div class="input-group-addon control" data-controls-toggle>
                                 <div class="glyphicon"></div>
+                            </div>
+                            <div class="input-group-addon control" data-controls-nextlifecycle>
+                                <div class="glyphicon glyphicon-forward"></div>
+                            </div>
+                            <div class="form-control lc-counter" data-controls-viewport>0</div>
+                            <div class="input-group-addon control" data-controls-reset>
+                                <div class="glyphicon glyphicon-eject"></div>
                             </div>
                         </div>
                     </div>

@@ -12,6 +12,8 @@ class GameOfLife {
       "verbose": false
     }, options);
 
+    this.verbose = this.opts.verbose;
+
     this.cellsCount = this.opts.rows * this.opts.columns;
     GameOfLife.decorateBoard(this);
   }
@@ -276,6 +278,7 @@ class GameOfLife {
 
   set verbose(val) {
     this.opts.verbose = !!val;
+    this.el.dataset.verbose = this.opts.verbose;
   }
   get verbose() {
     return !!this.opts.verbose;
