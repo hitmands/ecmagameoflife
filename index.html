@@ -29,10 +29,10 @@
         <nav class="navbar navbar-default navbar-static-top">
 
             <div class="row">
-                <div class="col-xs-8">
-                    <div class="input-group">
+                <div class="col-xs-7">
+                    <div class="">
                         <label for="GameOfLife-Patterns" class="sr-only">Patterns</label>
-                        <select class="form-control" id="GameOfLife-Patterns">
+                        <select tabindex="1" class="form-control" id="GameOfLife-Patterns">
                             <option value="0" selected>Empty</option>
                             <optgroup label="Still lifes">
                                 <option value="1">BLOCK</option>
@@ -54,18 +54,22 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-xs-4">
+                <div class="col-xs-5">
                     <div id="GameOfLife-Controls" class="gameoflife-controls">
                         <div class="input-group">
-                            <div class="input-group-addon control" data-controls-toggle>
+                            <div tabindex="2" class="input-group-addon control" data-controls-toggle>
                                 <div class="glyphicon"></div>
                             </div>
-                            <div class="input-group-addon control" data-controls-nextlifecycle>
+                            <div tabindex="3" class="input-group-addon control" data-controls-nextlifecycle>
                                 <div class="glyphicon glyphicon-forward"></div>
                             </div>
-                            <div class="form-control lc-counter" data-controls-viewport>0</div>
-                            <div class="input-group-addon control" data-controls-reset>
+                            <div tabindex="4" class="input-group-addon control" data-controls-reset>
                                 <div class="glyphicon glyphicon-eject"></div>
+                            </div>
+                            <div class="form-control lc-counter" data-controls-viewport>0</div>
+                            <div class="input-group-addon">
+                                <div class="glyphicon glyphicon-time"></div>
+                                <span class="lc-interval">500</span>
                             </div>
                         </div>
                     </div>

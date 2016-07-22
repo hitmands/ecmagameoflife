@@ -21,6 +21,8 @@
     padding: 7px;
 }
 .gameoflife-controls {
+    -webkit-user-select: none;
+    user-select: none;
 }
 .gameoflife-controls .control {
     cursor: pointer;
@@ -42,8 +44,12 @@
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
-    -webkit-user-select: none;
-    user-select: none;
+}
+.lc-interval {
+    font-size: .8em;
+}
+.lc-interval-unit {
+    font-size: .6em;
 }
 .form-control {
     text-transform: uppercase;

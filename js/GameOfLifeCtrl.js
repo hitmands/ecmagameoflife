@@ -20,12 +20,15 @@ function GameOfLifeCtrl(game) {
   };
 
   let controls = (($) => {
-    let el = $.getElementById('GameOfLife-Controls');
-    let toggle = el.querySelector('[data-controls-toggle]');
-    let next = el.querySelector('[data-controls-nextlifecycle]');
-    let clear = el.querySelector('[data-controls-reset]');
-    let viewport = el.querySelector('[data-controls-viewport]');
-    let select = $.querySelector('#GameOfLife-Patterns');
+    let
+      el = $.getElementById('GameOfLife-Controls'),
+      toggle = el.querySelector('[data-controls-toggle]'),
+      next = el.querySelector('[data-controls-nextlifecycle]'),
+      clear = el.querySelector('[data-controls-reset]'),
+      viewport = el.querySelector('[data-controls-viewport]'),
+      select = $.querySelector('#GameOfLife-Patterns'),
+      lcIntervalDisplay = $.querySelector('.lc-interval')
+      ;
 
     toggle.onclick = () => game.isPlaying() ? game.pause() : game.play();
     next.onclick = () => game.nextLifeCycle();
@@ -34,6 +37,7 @@ function GameOfLifeCtrl(game) {
       this.restoreCurrentPattern();
     };
 
+    lcIntervalDisplay.innerHTML = `<span class="lc-interval-value">${game.lifeCycleInterval}</span><span class="lc-interval-unit">MS</span>`;
     select.onchange = () => this.setPattern(Number(select.value));
 
     return {el, toggle, viewport, next, select};
