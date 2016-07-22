@@ -83,7 +83,7 @@ function GameOfLifeCtrl(game) {
         this.drawBeacon(83);
         break;
       case PATTERNS.PULSAR:
-        this.drawPulsar(166);
+        this.drawPulsar(137);
         break;
       case PATTERNS.PENTADECATHLON:
         this.drawPentadecathlon(166);
@@ -304,6 +304,299 @@ function GameOfLifeCtrl(game) {
 
     cell
       .live()
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .south
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .southeast
+      .live()
+
+      .neighborhood
+      .east
+      .live()
+
+      .neighborhood
+      .north
+      .live()
+
+      .neighborhood
+      .east
+
+      .neighborhood
+      .east
+      .live()
+
+      .neighborhood
+      .north
+      .live()
+
+      .neighborhood
+      .east
+      .live()
+
+      .neighborhood
+      .east
+      .live()
+
+      .neighborhood
+      .south
+
+      .neighborhood
+      .south
+
+      .neighborhood
+      .south
+
+      .neighborhood
+      .south
+
+      .neighborhood
+      .south
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .north
+      .live()
+
+      .neighborhood
+      .west
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .north
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .southeast
+      .live()
+
+      .neighborhood
+      .southwest
+      .live()
+
+      .neighborhood
+      .northwest
+      .live()
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .southeast
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .east
+      .live()
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .west
+
+      .neighborhood
+      .west
+
+      .neighborhood
+      .west
+
+      .neighborhood
+      .west
+
+      .neighborhood
+      .west
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .north
+      .live()
+
+      .neighborhood
+      .north
+      .live()
+
+      .neighborhood
+      .east
+      .live()
+
+      .neighborhood
+      .north
+
+      .neighborhood
+      .north
+      .live()
+
+      .neighborhood
+      .east
+      .live()
+
+      .neighborhood
+      .north
+      .live()
+
+      .neighborhood
+      .northwest
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .west
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .north
+
+      .neighborhood
+      .north
+
+      .neighborhood
+      .north
+
+      .neighborhood
+      .north
+
+      .neighborhood
+      .north
+
+      .neighborhood
+      .north
+      .live()
+
+      .neighborhood
+      .east
+      .live()
+
+      .neighborhood
+      .east
+      .live()
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .east
+
+      .neighborhood
+      .east
+      .live()
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .east
+      .live()
+
+      .neighborhood
+      .northeast
+      .live()
+
+      .neighborhood
+      .north
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .north
+
+      .neighborhood
+      .north
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .north
+      .live()
+
+      .neighborhood
+      .north
+      .live()
     ;
 
     return this;
@@ -381,15 +674,6 @@ function GameOfLifeCtrl(game) {
 
       .neighborhood
       .north
-      .live()
-    ;
-
-    return this;
-  };
-  this.draw = (cell) => {
-    cell = Cell.is(cell) ? cell: game.getCell(cell);
-
-    cell
       .live()
     ;
 
