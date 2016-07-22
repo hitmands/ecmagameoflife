@@ -1,3 +1,40 @@
 @import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css");
 @import url("css/GameOfLife.css");
 @import url("css/Cell.css");
+
+body {
+    --footer-height: 100px;
+    padding-bottom: var(--footer-height);
+    position: relative;
+}
+
+.footer-container {
+    --height: var(--footer-height);
+}
+.footer {
+    position: absolute;
+    height: var(--height);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-top: 1px;
+
+    text-transform: uppercase;
+    font-size: .7em;
+}
+.hitmands {
+    padding-top: 1em;
+}
+.chromeinfo {
+    text-align: right;
+}
+.chromeinfo .text-small {
+    font-size: .7em;
+}
+.chromeinfo-image {
+    height: auto;
+    width: calc(var(--footer-height) * .7);
+}
+.chromeinfo-version {
+    font-size: .9em;
+}

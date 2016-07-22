@@ -18,6 +18,19 @@ document.addEventListener('DOMContentLoaded', () => {
     game
   });
 
+  ((el) => {
+    let
+      born = new Date(1986, 4, 16),
+      now = new Date(),
+
+      age = now.getFullYear() - born.getFullYear(),
+
+      tpl = `<span><strong>Giuseppe Mandato</strong> - ${age} years old Frontend Developer</span>`
+    ;
+
+    el.innerHTML = tpl;
+  })(document.getElementById('Hitmands'));
+
   game
     .prepare()
     .then(GameOfLifeCtrl.bind(Object.create(null), game))
