@@ -8,6 +8,11 @@ body {
     position: relative;
 }
 
+.callout ul {
+    margin-bottom: 0;
+    font-size: .8em;
+}
+
 .footer-container {
     --height: var(--footer-height);
 }

@@ -19,6 +19,7 @@
 }
 .gameoflife-footer .navbar {
     padding: 7px;
+    border-width: 1px;
 }
 .gameoflife-controls {
     -webkit-user-select: none;
