@@ -35,7 +35,7 @@ class Cell {
       "south": null,
       "southeast": null,
       "east": null,
-      "northeast": null,
+      "northeast": null
     };
     this.coords = null;
 
