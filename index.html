@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ECMAGAMEOFLIFE</title>
+
+    <script src="js/Cell.js"></script>
+    <script src="js/GameOfLife.js"></script>
+    <script src="js/GameOfLifeCtrl.js"></script>
+
+    <link rel="stylesheet" href="application.css">
+    <script src="application.js"></script>
+</head>
+<body>
+<section id="GameOfLife" class="gameoflife">
+    <div class="gameoflife-body"></div>
+    <footer class="gameoflife-footer">
+        <nav class="navbar navbar-default navbar-static-top">
+
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="input-group">
+                        <label for="gameoflife-patterns" class="sr-only">Patterns</label>
+                        <select class="form-control" id="GameOfLife-Patterns">
+                            <option value="0" selected>PATTERNS</option>
+                            <optgroup label="Still lifes">
+                                <option value="1">BLOCK</option>
+                                <option value="2">Beehive</option>
+                                <option value="3">Loaf</option>
+                                <option value="4">Boat</option>
+                            </optgroup>
+                            <optgroup label="Oscillators">
+                                <option value="5">Blinker (2 Life Cycle)</option>
+                                <option value="6">Toad (2 Life Cycle)</option>
+                                <option value="7">Beacon (2 Life Cycle)</option>
+                                <option value="8">Pulsar (3 Life Cycle)</option>
+                                <option value="9">Pentadecathlon (15 Life Cycle)</option>
+                            </optgroup>
+                            <optgroup label="Spaceships">
+                                <option value="10">Glider</option>
+                                <option value="11">Lightweight spaceship</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div id="GameOfLife-Controls" class="gameoflife-controls">
+                        <div class="input-group">
+                            <div class="input-group-addon control" data-controls-toggle>
+                                <div class="glyphicon"></div>
+                            </div>
+                            <div class="input-group-addon control" data-controls-nextlifecycle>
+                                <div class="glyphicon glyphicon-forward"></div>
+                            </div>
+                            <div class="form-control lc-counter" data-controls-viewport>0</div>
+                            <div class="input-group-addon control" data-controls-reset>
+                                <div class="glyphicon glyphicon-eject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+    </footer>
+</section>
+</body>
+</html>

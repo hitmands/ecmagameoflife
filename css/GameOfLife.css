@@ -1,0 +1,50 @@
+#GameOfLife {
+}
+.gameoflife {
+    padding: var(--cell-size);
+}
+.gameoflife .cell {
+    --size: var(--cell-size);
+    --alive-color: var(--cell-alive-color);
+    --dead-color: var(--cell-dead-color);
+}
+.gameoflife-viewport {
+    width: var(--board-width);
+    height: var(--board-height);
+    margin: auto;
+}
+.gameoflife-footer {
+    width: var(--board-width);
+    margin: auto;
+}
+.gameoflife-footer .navbar {
+    padding: 7px;
+}
+.gameoflife-controls {
+}
+.gameoflife-controls .control {
+    cursor: pointer;
+}
+.gameoflife-controls .control:hover {
+    box-shadow: inset -1px -1px 2px 0 rgba(9, 9, 9, .1);
+}
+.gameoflife-controls .control:active {
+    box-shadow: inset -2px -2px 10px 0 rgba(0, 0, 0, .1);
+}
+.gameoflife [data-controls-toggle] .glyphicon::before {
+    content: "\e072";
+}
+.gameoflife.is-playing [data-controls-toggle] .glyphicon::before {
+    content: "\e073";
+}
+
+.lc-counter {
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.form-control {
+    text-transform: uppercase;
+}

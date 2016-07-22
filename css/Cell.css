@@ -1,0 +1,45 @@
+.cell {
+    --size: 50px;
+    --dead-color: #fff;
+    --alive-color: #333;
+
+    width: var(--size);
+    height: var(--size);
+
+    float: left;
+    border: 1px solid transparent;
+    position: relative;
+}
+.cell.is-alive {
+    background-color: var(--alive-color);
+    border-color: var(--dead-color);
+}
+
+.cell.is-dead {
+    background-color: var(--dead-color);
+    border-color: var(--alive-color);
+}
+.cell.is-dead:hover {
+    border-color: var(--dead-color);
+}
+.cell.is-alive:hover {
+    border-color: var(--alive-color);
+}
+.cell.is-alive::before {
+    color: var(--dead-color);
+}
+.cell.is-dead::before {
+    color: var(--alive-color);
+}
+
+.cell::before {
+    position: absolute;
+    top: .2em;
+    left: .2em;
+    font-size: 8px;
+}
+.cell:hover::before {
+}
+.gameoflife[data-verbose="true"] .cell::before {
+    content: attr(data-id);
+}
