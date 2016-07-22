@@ -62,13 +62,13 @@ function GameOfLifeCtrl(game) {
 
     switch(this.currentPattern) {
       case PATTERNS.BLOCK:
-        this.drawBlock(83);
+        this.drawBlock(419);
         break;
       case PATTERNS.BEEHIVE:
-        this.drawBeehive(83);
+        this.drawBeehive(379);
         break;
       case PATTERNS.LOAF:
-        this.drawLoaf(83);
+        this.drawLoaf(419);
         break;
       case PATTERNS.BOAT:
         this.drawBoat(83);
@@ -145,19 +145,11 @@ function GameOfLifeCtrl(game) {
         .live()
 
         .neighborhood
-        .west
-        .live()
-
-        .neighborhood
         .southwest
         .live()
 
         .neighborhood
         .southeast
-        .live()
-
-        .neighborhood
-        .east
         .live()
 
         .neighborhood
