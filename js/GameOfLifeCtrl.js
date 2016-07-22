@@ -86,7 +86,7 @@ function GameOfLifeCtrl(game) {
         this.drawPulsar(137);
         break;
       case PATTERNS.PENTADECATHLON:
-        this.drawPentadecathlon(166);
+        this.drawPentadecathlon(179);
         break;
       case PATTERNS.GLIDER:
         this.drawGlider(2);
@@ -605,6 +605,96 @@ function GameOfLifeCtrl(game) {
     cell = Cell.is(cell) ? cell: game.getCell(cell);
 
     cell
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .southeast
+      .live()
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .southeast
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .south
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .east
+      .live()
+
+      .neighborhood
+      .north
+      .live()
+
+      .neighborhood
+      .east
+      .live()
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .south
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .southeast
+      .live()
+
+      .neighborhood
+      .south
+      .live()
+
+      .neighborhood
+      .southeast
+      .live()
+
+      .neighborhood
+      .west
+      .live()
+
+      .neighborhood
+      .west
       .live()
     ;
 
