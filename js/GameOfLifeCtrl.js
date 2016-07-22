@@ -55,7 +55,7 @@ function GameOfLifeCtrl(game) {
     cell.alive ? cell.kill(REASON) : cell.live(REASON);
   });
 
-  this.currentPattern = 0;
+  this.currentPattern = PATTERNS.NONE;
   this.setPattern = (type) => {
     this.reset();
     this.currentPattern = type;
@@ -110,7 +110,7 @@ function GameOfLifeCtrl(game) {
   };
 
   this.drawBlock = (cell) => {
-    cell = Cell.is(cell) ? cell: game.getCell(cell);
+    cell = Cell.is(cell) ? cell : game.getCell(cell);
 
     cell
       .live()
@@ -131,7 +131,7 @@ function GameOfLifeCtrl(game) {
     return this;
   };
   this.drawBeehive = (cell) => {
-    cell = Cell.is(cell) ? cell: game.getCell(cell);
+    cell = Cell.is(cell) ? cell : game.getCell(cell);
 
       cell
         .live()
@@ -160,7 +160,7 @@ function GameOfLifeCtrl(game) {
     return this;
   };
   this.drawLoaf = (cell) => {
-    cell = Cell.is(cell) ? cell: game.getCell(cell);
+    cell = Cell.is(cell) ? cell : game.getCell(cell);
 
     cell
       .live()
@@ -197,7 +197,7 @@ function GameOfLifeCtrl(game) {
     return this;
   };
   this.drawBoat = (cell) => {
-    cell = Cell.is(cell) ? cell: game.getCell(cell);
+    cell = Cell.is(cell) ? cell : game.getCell(cell);
 
     cell
       .live()
@@ -222,7 +222,7 @@ function GameOfLifeCtrl(game) {
     return this;
   };
   this.drawBlinker = (cell) => {
-    cell = Cell.is(cell) ? cell: game.getCell(cell);
+    cell = Cell.is(cell) ? cell : game.getCell(cell);
 
     cell
       .live()
@@ -239,7 +239,7 @@ function GameOfLifeCtrl(game) {
     return this;
   };
   this.drawToad = (cell) => {
-    cell = Cell.is(cell) ? cell: game.getCell(cell);
+    cell = Cell.is(cell) ? cell : game.getCell(cell);
 
     cell
       .live()
@@ -268,7 +268,7 @@ function GameOfLifeCtrl(game) {
     return this;
   };
   this.drawBeacon = (cell) => {
-    cell = Cell.is(cell) ? cell: game.getCell(cell);
+    cell = Cell.is(cell) ? cell : game.getCell(cell);
 
     cell
       .live()
@@ -300,7 +300,7 @@ function GameOfLifeCtrl(game) {
     return this;
   };
   this.drawPulsar = (cell) => {
-    cell = Cell.is(cell) ? cell: game.getCell(cell);
+    cell = Cell.is(cell) ? cell : game.getCell(cell);
 
     cell
       .live()
@@ -602,7 +602,7 @@ function GameOfLifeCtrl(game) {
     return this;
   };
   this.drawPentadecathlon = (cell) => {
-    cell = Cell.is(cell) ? cell: game.getCell(cell);
+    cell = Cell.is(cell) ? cell : game.getCell(cell);
 
     cell
       .live()
@@ -701,7 +701,7 @@ function GameOfLifeCtrl(game) {
     return this;
   };
   this.drawGlider = (cell) => {
-    cell = Cell.is(cell) ? cell: game.getCell(cell);
+    cell = Cell.is(cell) ? cell : game.getCell(cell);
 
     cell
       .live()
@@ -726,7 +726,7 @@ function GameOfLifeCtrl(game) {
     return this;
   };
   this.drawLightWeightSpaceShip = (cell) => {
-    cell = Cell.is(cell) ? cell: game.getCell(cell);
+    cell = Cell.is(cell) ? cell : game.getCell(cell);
 
     cell
       .live()
