@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     "columns": 40,
     "aliveColor": "#333",
     "deadColor": "#fff",
-    "verbose": true
+    "verbose": false
   };
 
   let game = new GameOfLife(element, options);

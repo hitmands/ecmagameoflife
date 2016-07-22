@@ -69,7 +69,7 @@ class Cell {
   set lifeStatus(val) {
     this.__LIFESTATUS__ = val;
   }
-  
+
   set alive(val) {
     this._alive = !!val;
 
@@ -182,32 +182,32 @@ class Cell {
     }
 
     if(alive) {
-      console.log(1);
+      this.game.verbose && console.log(1);
 
       if(this.hasLessThanTwoAliveNeighbors()) {
-        console.log(1.1);
+        this.game.verbose && console.log(1.1);
 
         this.lifeStatusReason = LIFESTATUS_REASONS.ISOLATION;
         this.lifeStatus = LIFESTATUS.DEAD;
 
       } else if(this.hasMoreThanThreeAliveNeighbors()) {
-        console.log(1.2);
+        this.game.verbose && console.log(1.2);
 
         this.lifeStatusReason = LIFESTATUS_REASONS.OVERPOPULATION;
         this.lifeStatus = LIFESTATUS.DEAD;
 
       } else if(this.hasTwoOrThreeAliveNeighbors()) {
-        console.log(1.3);
+        this.game.verbose && console.log(1.3);
 
         this.lifeStatusReason = LIFESTATUS_REASONS.SURVIVAL;
         this.lifeStatus = LIFESTATUS.ALIVE;
       }
 
     } else {
-      console.log(2);
+      this.game.verbose && console.log(2);
 
       if(this.hasExactlyThreeAliveNeighbors()) {
-        console.log(2.1);
+        this.game.verbose && console.log(2.1);
 
         this.lifeStatusReason = LIFESTATUS_REASONS.REPRODUCTION;
         this.lifeStatus = LIFESTATUS.ALIVE;

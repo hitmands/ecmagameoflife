@@ -19,26 +19,29 @@
 
             <div class="row">
                 <div class="col-xs-8">
-                    <select class="form-control" id="GameOfLife-Patterns">
-                        <option value="0" disabled selected>PATTERNS</option>
-                        <optgroup label="Still lifes">
-                            <option value="1">BLOCK</option>
-                            <option value="2">Beehive</option>
-                            <option value="3">Loaf</option>
-                            <option value="4">Boat</option>
-                        </optgroup>
-                        <optgroup label="Oscillators">
-                            <option value="5">Blinker (2 Life Cycle)</option>
-                            <option value="6">Toad (2 Life Cycle)</option>
-                            <option value="7">Beacon (3 Life Cycle)</option>
-                            <option value="8">Pulsar (3 Life Cycle)</option>
-                            <option value="9">Pentadecathlon (15 Life Cycle)</option>
-                        </optgroup>
-                        <optgroup label="Spaceships">
-                            <option value="10">Glider</option>
-                            <option value="11">Lightweight spaceship</option>
-                        </optgroup>
-                    </select>
+                    <div class="input-group">
+                        <label for="gameoflife-patterns" class="sr-only">Patterns</label>
+                        <select class="form-control" id="GameOfLife-Patterns">
+                            <option value="0" selected>PATTERNS</option>
+                            <optgroup label="Still lifes">
+                                <option value="1">BLOCK</option>
+                                <option value="2">Beehive</option>
+                                <option value="3">Loaf</option>
+                                <option value="4">Boat</option>
+                            </optgroup>
+                            <optgroup label="Oscillators">
+                                <option value="5">Blinker (2 Life Cycle)</option>
+                                <option value="6">Toad (2 Life Cycle)</option>
+                                <option value="7">Beacon (2 Life Cycle)</option>
+                                <option value="8">Pulsar (3 Life Cycle)</option>
+                                <option value="9">Pentadecathlon (15 Life Cycle)</option>
+                            </optgroup>
+                            <optgroup label="Spaceships">
+                                <option value="10">Glider</option>
+                                <option value="11">Lightweight spaceship</option>
+                            </optgroup>
+                        </select>
+                    </div>
                 </div>
                 <div class="col-xs-4">
                     <div id="GameOfLife-Controls" class="gameoflife-controls">
