@@ -75,10 +75,10 @@ class Cell {
 
     if(this.alive) {
       this.el.classList.add(Cell.ALIVE_CLASSNAME);
-      this.el.classList.remove(Cell.DEATH_CLASSNAME);
+      this.el.classList.remove(Cell.DEAD_CLASSNAME);
     } else {
       this.el.classList.remove(Cell.ALIVE_CLASSNAME);
-      this.el.classList.add(Cell.DEATH_CLASSNAME);
+      this.el.classList.add(Cell.DEAD_CLASSNAME);
     }
 
   }
@@ -251,7 +251,7 @@ class Cell {
   static get ALIVE_CLASSNAME() {
     return "is-alive";
   }
-  static get DEATH_CLASSNAME() {
+  static get DEAD_CLASSNAME() {
     return "is-dead";
   }
   static get MAX_NEIGHBORS() {
