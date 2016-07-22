@@ -1,4 +1,4 @@
-ECMASCRIPT-6 - Game Of Life
+ECMASCRIPT 6 - Game Of Life
 =======
 
 ##DEMO:  [https://hitmands.github.io/ecmagameoflife/](https://hitmands.github.io/ecmagameoflife/)
