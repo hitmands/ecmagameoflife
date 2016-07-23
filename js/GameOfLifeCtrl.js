@@ -1,8 +1,16 @@
 "use strict";
 
 function GameOfLifeCtrl(game) {
-  let REASON = "userinput";
-  game.lifeCycleInterval = 500;
+  const
+    REASON = "userinput",
+    INTERVAL = {
+      "STEP": 250,
+      "MIN" : 1,
+      "MAX" : 12,
+      "current": 2
+    }
+    ;
+
 
   const PATTERNS = {
     "NONE": 0,
@@ -27,7 +35,9 @@ function GameOfLifeCtrl(game) {
       clear = el.querySelector('[data-controls-reset]'),
       viewport = el.querySelector('[data-controls-viewport]'),
       select = $.querySelector('#GameOfLife-Patterns'),
-      lcIntervalDisplay = $.querySelector('.lc-interval')
+      lcIntervalDisplay = $.querySelector('.lc-interval-value'),
+      incrInt = $.querySelector('[data-controls-interval-grow]'),
+      decrInt = $.querySelector('[data-controls-interval-shrink]')
       ;
 
     toggle.onclick = () => game.isPlaying() ? game.pause() : game.play();
@@ -37,11 +47,42 @@ function GameOfLifeCtrl(game) {
       this.restoreCurrentPattern();
     };
 
-    lcIntervalDisplay.innerHTML = `<span class="lc-interval-value">${game.lifeCycleInterval}</span><span class="lc-interval-unit">MS</span>`;
     select.onchange = () => this.setPattern(Number(select.value));
 
-    return {el, toggle, viewport, next, select};
+
+    return {el, toggle, viewport, next, select, lcIntervalDisplay, incrInt, decrInt};
   })(document);
+
+  this.setLifeCycleInterval = (i) => {
+
+    let
+      min = INTERVAL.MIN * INTERVAL.STEP,
+      max = INTERVAL.MAX * INTERVAL.STEP
+      ;
+
+    if(i < min) {
+      i = min;
+      INTERVAL.current = INTERVAL.MIN;
+    }
+    if(i > max) {
+      i = max;
+      INTERVAL.current = INTERVAL.MAX;
+    }
+
+    game.lifeCycleInterval = i;
+    controls.lcIntervalDisplay.innerHTML = `${game.lifeCycleInterval}`;
+  };
+
+  controls.incrInt.onclick = () => {
+    INTERVAL.current += 1;
+    this.setLifeCycleInterval(INTERVAL.current * INTERVAL.STEP);
+  };
+  controls.decrInt.onclick = () => {
+    INTERVAL.current -= 1;
+    this.setLifeCycleInterval(INTERVAL.current * INTERVAL.STEP);
+  };
+
+
 
   game.onLifeCycle((event, data) => {
     controls.viewport.innerHTML = data.lifeCycle;
@@ -776,4 +817,6 @@ function GameOfLifeCtrl(game) {
 
 
   this.restoreCurrentPattern = () => this.setPattern(this.currentPattern);
+  this.setLifeCycleInterval(INTERVAL.current * INTERVAL.STEP);
+  this.controls = controls;
 }

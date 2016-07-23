@@ -55,3 +55,11 @@
 .form-control {
     text-transform: uppercase;
 }
+
+.lc-interval-ms {
+    font-size: .6em;
+    padding: 0;
+}
+.lc-interval-ms .control {
+    padding: 3px 6px;
+}

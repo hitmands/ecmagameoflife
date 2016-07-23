@@ -273,7 +273,11 @@ class GameOfLife {
     return this.__LIFECYCLE_INTERVAL__ || 1000;
   }
   set lifeCycleInterval(ms) {
+    let isPlaying = this.isPlaying();
+
+    isPlaying && this.pause();
     this.__LIFECYCLE_INTERVAL__ = Number(ms);
+    isPlaying && this.play();
   }
 
   set verbose(val) {

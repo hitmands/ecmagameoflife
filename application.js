@@ -12,10 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
     "verbose": false
   };
 
-  let game = new GameOfLife(element, options);
+  let
+    game = new GameOfLife(element, options),
+    scope = GameOfLifeCtrl.bind(Object.create(null))
+    ;
+
 
   Object.assign(window, {
-    game
+    game,
+    ctrl: scope
   });
 
   ((el) => {
@@ -33,6 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   game
     .prepare()
-    .then(GameOfLifeCtrl.bind(Object.create(null), game))
+    .then(GameOfLifeCtrl.bind(scope,  game))
   ;
 });
