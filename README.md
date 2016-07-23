@@ -13,6 +13,8 @@ Sources:
 [Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
 > FRAMEWORK/LIBRARY FREE
+
 > NO-HTML5_CANVAS USED
+
 > NO-LEGACY SUPPORT, tested with Google Chrome V. 51.0.2704.103 (64-BIT)
 
